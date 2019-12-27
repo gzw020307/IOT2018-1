@@ -1,0 +1,32 @@
+//计算圆的面积
+#include<stdio.h>
+#include<math.h>
+#define PI atan(1.0)*4
+int main()
+{
+	int r;
+	scanf("%d",&r);
+	double s;
+	s=PI*r*r;
+	printf("%.7lf\n",s);
+	return 0;
+}///////这是提交的代码，bingo
+comparation:
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	int r;
+	float s,pi;
+	pi=3.1415926;    //手动输入PI值    
+	scanf("%d",&r);
+	s=pi*r*r;  //圆的面积公式
+	printf("%.7f\n",s);
+	return 0;
+}//这种也可以，但是后位精度不够
+
+
+
+
+
+
