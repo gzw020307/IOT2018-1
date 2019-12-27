@@ -1,0 +1,67 @@
+#include<stdio.h>
+#include<iostream>
+
+struct node{
+    int key;//储存值
+    struct node *left,*right;//指向左孩子右孩子
+};
+
+struct node *newNode(int n)
+{
+    struct node*p=new node;//分配内存
+    if(p==NULL){
+        printf("Error!\n");
+    }
+	printf("-----");
+    p->key =n;
+    p->left =p->right =NULL;
+    return p;
+}
+
+struct node *insert(struct node *root,int n)
+{
+    if (root==NULL)//把n赋给二叉树
+    {
+		printf("aaaa!!");
+        return newNode(n);
+    }
+    if (root->key>n)//n的值小就递归调用右孩子
+    {	
+		printf("bbbb!!");
+        root->left=insert(root->left,n);
+    }
+    else//n的值大就递归调用左孩子
+    {
+		printf("cccc!!");
+        root->right=insert(root->right,n);
+    }
+	return 0;
+}
+void inOrder(struct node *root)
+{
+    if(root != NULL){
+        inOrder(root->left);
+        printf("%d",root->key);
+        inOrder(root->right);
+    }
+}
+
+int main(int argc,char const *argv[100])
+{
+    struct node *root =NULL;
+    int n,m;
+
+//    printf("enter m:\n");
+//    scanf("%d",&m);
+    m=5;
+    for (int i = 0; i < m; i++)
+    {
+        printf("Enter your number");
+        scanf("%d",&n);
+		insert(root,n); 
+
+    }
+  
+    inOrder(root);
+    return 0;
+}
