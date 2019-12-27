@@ -1,0 +1,83 @@
+#define MAX_SIZE 20
+
+typedef struct LinkNode {
+    int array_index;            // 数组下标
+    int weight;                 // 权重
+    struct LinkNode *next;     // 下一个顶点
+} LinkNode;
+
+typedef struct GraphNode {
+    char data;                  // 结点数据
+    struct LinkNode *first;     // 顶点链表
+} GraphNode;
+
+typedef struct GraphTable {
+    GraphNode nodes[MAX_SIZE];
+    int vertexNum, edgeNum;     // 顶点数，变数
+} GraphTable, *P_GraphTable;
+
+void printTable(P_GraphTable *G) {
+    int i;
+    LinkNode *node;
+    // 输出邻接表
+    printf("------------ 无向邻接表 ----------\n");
+    
+    for(i=0; i<(*G)->vertexNum; i++) {
+        node = NULL;
+        node = (*G)->nodes[i].first;
+        printf("%d-%c|-",i, (*G)->nodes[i].data);
+        while( node != NULL && node->array_index >= 0) {
+            printf("%d-",node->array_index);
+            node = node->next;
+        }
+        printf("\n");   // 换行
+    }
+    
+}
+
+void createTable(P_GraphTable *G) {
+    (*G) = (P_GraphTable) malloc(sizeof(GraphTable));
+    
+    int m,n,i;
+    printf("请输入图的顶点数与边数:");
+    scanf("%d %d", &m, &n);
+    getchar();
+    
+    (*G)->vertexNum = m;
+    (*G)->edgeNum = n;
+    
+    
+    // 创建顶点数组 GraphNode
+    for(m = 0; m<(*G)->vertexNum; m++) {
+        printf("请输入第 %d 个顶点:", (m+1));
+        scanf("%c", &(*G)->nodes[m].data);
+        getchar();
+        (*G)->nodes[m].first = NULL;    // 初始化为空表
+    }
+    
+    // 创建边
+    for(i = 0; i<(*G)->edgeNum; i++) {
+        printf("请输入第%d条边(Vi,Vj)上的下标i,下标j:\n", (i+1));
+        scanf("%d %d", &m, &n);     // 下标对应顶点
+        getchar();
+        
+    
+        LinkNode *e1 = (LinkNode *)malloc(sizeof(LinkNode));
+        e1->array_index = n;                // 设置邻接点下标
+        e1->next = (*G)->nodes[m].first;    // 第一次时，first为NULL，后面会被替换掉
+        (*G)->nodes[m].first = e1;          // 放入图中数组
+        
+        LinkNode *e2 = (LinkNode *)malloc(sizeof(LinkNode));
+        e2->array_index = m;                // 设置邻接点下标
+        e2->next = (*G)->nodes[n].first;
+        (*G)->nodes[n].first = e2;
+    }
+    
+    printTable(G);
+}
+
+int main(int argc, const char * argv[]) {
+    P_GraphTable table;
+    createTable(&table);
+    return 0;
+}
