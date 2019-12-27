@@ -1,0 +1,72 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<iostream>
+
+typedef char ElemType;
+typedef int Status;
+
+typedef struct{
+	ElemType *base;//判断栈的存在
+	ElemType *top;//栈顶
+	int stacksize;//分配的空间
+}SqStack;
+
+
+Status add(SqStack &S);
+Status Init(SqStack &S);
+Status In(SqStack &S,ElemType &e);
+Status Out(SqStack &S,ElemType &e);
+
+
+int main (){
+	SqStack S;
+	add(S);
+	return 0;
+}
+
+Status Init(SqStack &S)
+{//构建空栈
+	S.base=new ElemType;
+	if(!S.base)exit(-1);
+	S.base=	S.top;
+	S.stacksize=100;
+	return 0;
+}
+Status In(SqStack &S,ElemType &e)
+{//入栈
+	if(S.top-S.base>=S.stacksize){//内存已满，追加分配空间
+		S.base=new ElemType;
+		S.stacksize+=100;}
+	*S.top++=e;
+	return 0;
+}
+	
+Status Out(SqStack &S,ElemType &e)
+{//出栈
+	if(S.top==S.base){
+		printf("error1\n");
+		return -1;
+	}
+	e=*--S.top;
+	return 0;
+}
+
+Status add(SqStack &S)
+{
+	ElemType e;
+	Init(S);
+	printf("a\n");
+	e=0;
+	while(e>=0){
+		scanf("%s",e);
+		printf("b\n");
+		In(S,e);
+		printf("c\n");
+	}
+	while(S.base==S.top){
+		Out(S,e);
+		printf("%s",e);
+	}
+	return 0;
+}
