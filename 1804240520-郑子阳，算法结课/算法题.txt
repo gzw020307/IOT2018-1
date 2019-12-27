@@ -1,0 +1,131 @@
+1.试编写一个判别给定的二叉树是否为二叉排序树的算法。
+int storenum=0;
+int flag=1;
+int isbstree(bitree t)
+{
+  if(t->lchild&&flag)
+   isbstree(t->lchid);
+  if(t->data,key<storenum)
+  flag=0;
+ storenum=t->data.key;
+ if(t->rchild&&flag)
+  is bstree(t->rchild);
+return flag;
+}
+2.删除二叉排序树中所有关键字不小于x的结点，并释放该结点空间。
+bool InsertBST(BiTree &T, ElemType x) 
+{
+    if (!T) {
+        T = CreatNode(x); return true;
+    }
+    else if (T->data.key == x.key) {
+        return false;
+    }
+    else if (x.key < T->data.key) {
+        return InsertBST(T->lc, x);
+    }
+    else {
+        return InsertBST(T->rc, x);
+    }
+}
+3已知一棵二叉树的后序遍历和中序遍历，写出可以确定这棵二叉树的算法
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX 105
+typedef struct bitnode
+{
+    char data;
+    struct bitnode *lchild,*rchild;
+}BiTNode,*BiTree;
+int search_num(char ch,char array[],int len);
+            //查找的元素   查找的地方   长度
+BiTree ReBiTree(char *postod,char *inod,int len);
+            //后序序列首地址  中序序列首地址    长度
+void Per_Print(BiTree bt);
+            //前序打印二叉树以判断二叉树构建成功
+int main()
+{
+    BiTree t=NULL;
+    char postod[MAX]={'g','d','b','e','f','c','a'};
+    char inod[MAX]={'d','g','b','a','e','c','f'};
+    t=ReBiTree(postod,inod,strlen(postod));
+    Per_Print(t);
+    return 0;
+}
+int search_num(char ch,char array[],int len)
+{
+    int i;
+    for(i=0;i<len;i++)
+    {
+        if(array[i]==ch)
+            return i;
+    }
+}
+BiTree ReBiTree(char *postod,char *inod,int len)
+{
+    int index;
+    if(len<=0)   return NULL;
+    BiTree p;
+    p=(BiTNode*)malloc(sizeof(BiTNode));
+    p->data=*(postod+len-1);
+    index=search_num(p->data,inod,len);
+    p->lchild=ReBiTree(postod,inod,index);
+    p->rchild=ReBiTree(postod+index,inod+index+1,len-index-1);
+}
+void Per_Print(BiTree bt)
+{
+    if(bt==NULL)   return;
+    printf("%c",bt->data);
+    Per_Print(bt->lchild);
+    Per_Print(bt->rchild);
+}
+ 4.求二叉树叶子节点个数，递归求解
+int leaf(PTNode root)
+{
+    if(root==0)
+    {
+        return 0;
+    }
+    else if(root->lchild==NULL && root->rchild==NULL)
+    {
+        printf("叶子节点%d\n",root->data);
+        return 1;
+    }
+    else
+    {
+        return leaf(root->lchild)+leaf(root->rchild);
+    }
+ } 
+5一个线性表中的元素为正整树或负整数。将正整数和负整数分开，前面为负，后面为正
+#include <stdio.h>
+#include <stdlib.h>
+void Parition( int a[] , int n ){
+    int pivot = 0 ;
+    int m = a[0] ;
+    int i = 0 , j= n-1 ;
+    while(i<j){
+        while(i<j&&a[j]>=pivot) --j;
+        a[i] = a[j];
+        while(i<j&&a[i]<=pivot) ++i;
+        a[j] = a[i];
+    }
+    a[i] = m ;
+}
+int main()
+{
+    printf("数组长度：");
+    int n  ;
+    scanf("%d",&n);
+    int a[n];
+    printf("数组：\n");
+    for(int i = 0 ; i < n ; i++){
+        scanf("%d",&a[i]);
+    }
+    printf("负数移动到正数前：");
+    Parition(a , n) ;
+    for(int i = 0 ; i < n ; i++){
+        printf("%d ",a[i]);
+    }
+    return 0;
+}
