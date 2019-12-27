@@ -1,0 +1,43 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: bst - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\ASUS\AppData\Local\Temp\RSP8133.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/bst.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ  /c 
+"E:\C语言程序\算法设计\bst\exde.cpp"
+]
+Creating command line "cl.exe @C:\Users\ASUS\AppData\Local\Temp\RSP8133.tmp" 
+<h3>Output Window</h3>
+Compiling...
+exde.cpp
+E:\C语言程序\算法设计\bst\exde.cpp(1) : error C2143: syntax error : missing ';' before 'else'
+E:\C语言程序\算法设计\bst\exde.cpp(4) : error C2143: syntax error : missing ';' before 'else'
+E:\C语言程序\算法设计\bst\exde.cpp(5) : error C2143: syntax error : missing ';' before 'else'
+E:\C语言程序\算法设计\bst\exde.cpp(7) : error C2143: syntax error : missing ';' before 'else'
+E:\C语言程序\算法设计\bst\exde.cpp(8) : error C2065: 'p' : undeclared identifier
+E:\C语言程序\算法设计\bst\exde.cpp(8) : error C2501: 'free' : missing storage-class or type specifiers
+E:\C语言程序\算法设计\bst\exde.cpp(9) : error C2143: syntax error : missing ';' before '}'
+E:\C语言程序\算法设计\bst\exde.cpp(9) : error C2143: syntax error : missing ';' before '}'
+E:\C语言程序\算法设计\bst\exde.cpp(9) : error C2143: syntax error : missing ';' before '}'
+E:\C语言程序\算法设计\bst\exde.cpp(10) : error C2143: syntax error : missing ';' before '{'
+E:\C语言程序\算法设计\bst\exde.cpp(10) : error C2447: missing function header (old-style formal list?)
+E:\C语言程序\算法设计\bst\exde.cpp(23) : error C2143: syntax error : missing ';' before 'return'
+E:\C语言程序\算法设计\bst\exde.cpp(24) : error C2143: syntax error : missing ';' before '}'
+E:\C语言程序\算法设计\bst\exde.cpp(24) : error C2143: syntax error : missing ';' before '}'
+E:\C语言程序\算法设计\bst\exde.cpp(24) : error C2143: syntax error : missing ';' before '}'
+E:\C语言程序\算法设计\bst\exde.cpp(27) : error C2143: syntax error : missing ';' before '{'
+E:\C语言程序\算法设计\bst\exde.cpp(27) : error C2447: missing function header (old-style formal list?)
+执行 cl.exe 时出错.
+
+
+
+<h3>Results</h3>
+exde.obj - 1 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
