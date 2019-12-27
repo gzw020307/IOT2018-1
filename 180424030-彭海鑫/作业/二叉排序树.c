@@ -1,54 +1,36 @@
-#include<stdio.h>
-#include<malloc.h>
-typedef struct node
+#include <stdio.h>
+#include <stdlib.h>
+#include "head1.h"
+int main(void)
 {
-	int key;//关键字的值
-	struct node *lchild,*rchild;//左右指针
-}BSTNode,*BSTree;
-void InsertBST(BSTree *bst,int key)//二叉树的插入结点
-{
-	BSTree s;
-	if(*bst==NULL)
+	int *key;
+	int n, i=0;
+	int num,del_key;
+	printf("输入要构建的二叉树的长度\n");
+	scanf("%d", &n);
+	key = (int *)malloc(sizeof(int)*n);
+	printf("输入%d个结点:\n",n);
+	for(i=0; i<n; i++)
 	{
-	s=(BSTree)malloc(sizeof(BSTNode));
-	s->key=key;
-	s->lchild=NULL;
-	s->rchild=NULL;
-	*bst=s;
+		scanf("%d", &key[i]);
 	}
-else if(key<(*bst)->key)
-InsertBST(&((*bst)->lchild),key);//将s插入左子串
-else if(key>(*bst)->key)
-InsertBST(&((*bst)->rchild),key);//将s插入右子串
-}
-void CreateBST(BSTree *bst)//创建二叉排序树
-{
-	int key;
-	*bst=NULL;
-	scanf("%d",&key);
-	while(key!=0)
-	{
-		InsertBST(bst,key);
-		scanf("%d",&key);
-	}
-}
-void inorder(BSTree bt)
-{
-	if(bt!=NULL)
-	{
-		inorder(bt->lchild);
-			printf("%3d",bt->key);
-		inorder(bt->rchild);
-	}
-}
-main()
-{
-	BSTree bt;
-	printf("please insert the numbers(以0为结束标志):\n");
-	CreateBST(&bt);
-	printf("\n中序遍历结果是:");
-	inorder(bt);
-	printf("\n");
+	BST *bst = NULL;
+	create(&bst, key, n);//创建 
+	printf("二叉排序树已成功创建!\n");
+	getchar();
+	getchar();
+	printf("中序遍历构建的二叉排序树:\n");	//中序遍历 
+	inorder(bst);
+	getchar();getchar();
+	printf("输入要删除的元素：\n");
+	scanf("%d", &del_key); 
+	del(&bst, del_key);//删除
+	printf("中序遍历：\n");
+	inorder(bst);
+	getchar();
+	getchar();
+	destroy(bst);
+	printf("树已成功删除!\n");
 	getchar();
 	return 0;
 }
