@@ -1,0 +1,40 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: 二叉排序树 - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\wyj\AppData\Local\Temp\RSP5357.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/二叉排序树.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"J:\数据结构作业\二叉排序树\function.cpp"
+]
+Creating command line "cl.exe @C:\Users\wyj\AppData\Local\Temp\RSP5357.tmp" 
+Creating temporary file "C:\Users\wyj\AppData\Local\Temp\RSP5358.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/二叉排序树.pdb" /debug /machine:I386 /out:"Debug/二叉排序树.exe" /pdbtype:sept 
+".\Debug\function.obj"
+".\Debug\main.obj"
+]
+Creating command line "link.exe @C:\Users\wyj\AppData\Local\Temp\RSP5358.tmp"
+<h3>Output Window</h3>
+Compiling...
+function.cpp
+J:\数据结构作业\二叉排序树\function.cpp(115) : error C2144: syntax error : missing ';' before type 'int'
+J:\数据结构作业\二叉排序树\function.cpp(115) : error C2057: expected constant expression
+J:\数据结构作业\二叉排序树\function.cpp(115) : error C2466: cannot allocate an array of constant size 0
+J:\数据结构作业\二叉排序树\function.cpp(115) : error C2133: 'a' : unknown size
+J:\数据结构作业\二叉排序树\function.cpp(144) : error C2664: 'SearchBST' : cannot convert parameter 4 from 'struct BiTNode *' to 'struct BiTNode ** '
+        Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+J:\数据结构作业\二叉排序树\function.cpp(153) : fatal error C1004: unexpected end of file found
+执行 cl.exe 时出错.
+
+
+
+<h3>Results</h3>
+二叉排序树.exe - 1 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
