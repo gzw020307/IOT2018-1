@@ -1,0 +1,14 @@
+1.试编写一个判别给定的二叉树是否为二叉排序树的算法。
+int storenum=0;
+int flag=1;
+int isbstree(bitree t)
+{
+  if(t->lchild&&flag)
+   isbstree(t->lchid);
+  if(t->data,key<storenum)
+  flag=0;
+ storenum=t->data.key;
+ if(t->rchild&&flag)
+  is bstree(t->rchild);
+return flag;
+}

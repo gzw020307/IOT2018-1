@@ -1,0 +1,15 @@
+bool InsertBST(BiTree &T, ElemType x) 
+{
+    if (!T) {
+        T = CreatNode(x); return true;
+    }
+    else if (T->data.key == x.key) {
+        return false;
+    }
+    else if (x.key < T->data.key) {
+        return InsertBST(T->lc, x);
+    }
+    else {
+        return InsertBST(T->rc, x);
+    }
+}

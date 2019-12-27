@@ -1,0 +1,152 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+#define FALSE 0
+#define TURE 1
+#define MAXSIZE 10
+
+typedef struct BiTNode
+{
+    int data;
+    struct BiTNode *lchild, *rchild;
+}BiTNode, *BiTree;
+
+//查找
+//f指向T的双亲，初始时为NULL
+//这里用f，*p，是问了存储查找时遍历的最后一个元素，在插入时用
+int SearchBST(BiTree T,int key,BiTree f,BiTree *p)
+{
+    if(!T)
+    {
+        *p=f;
+        return FALSE; 
+    }
+    else if(key==T->data)
+    {
+        *p=T;
+        return TURE;
+    }
+    else if(key<T->data)
+        return SearchBST(T->lchild,key,T,p);
+    else
+        return SearchBST(T->rchild,key,T,p);
+}
+
+//插入
+//如果插不到元素，获取查找时遍历的最后一个元素
+//与其比较，大则是其右子树，反之、、
+void InsertBST(BiTree *T,int key)
+{
+    BiTree p,s;
+    if(!SearchBST(*T,key,NULL,&p))      //若树中没有相同元素，继续
+    {
+        s=(BiTree)malloc(sizeof(BiTNode));
+        s->data=key;
+        s->lchild=s->rchild=NULL;       //设置新元素s
+        if(!p)      //若树为空，将s设为根节点
+            *T=s;
+        else if(key<p->data)        //否则。。
+            p->lchild=s;
+        else
+            p->rchild=s;
+    }
+    else
+        printf("抱歉，树中已有该元素。 \n");
+}
+
+//DeleteBST用到的子函数
+//删除节点无左子树，则将其右子树补到现在位置，反之亦然
+//若左右字树都有，则找其左子树，然后右到底，即中序遍历时，删除节点的上一个元素——前驱
+//以前驱作为新节点
+void Delete(BiTree *p)
+{
+    BiTree q,s;
+    if((*p)->rchild==NULL)      //无右，以左子树替换
+    {
+        q=*p;
+        *p=(*p)->lchild;
+        free(q);
+    }
+    else if((*p)->lchild==NULL)     //无左    
+    {
+        q=*p;
+        *p=(*p)->rchild;
+        free(q);
+    }
+    else
+    {
+        q=*p;
+        s=(*p)->lchild;     //左一下
+        while(s->rchild)    //右到底
+        {
+            q=s;
+            s=s->rchild;
+        }
+        (*p)->data=s->data;     //前驱替换删除节点
+        if(q!=*p)
+            q->rchild=s->lchild;
+        else
+            q->lchild=s->lchild;
+        free(s);
+    }
+}
+
+//删除
+void DeleteBST(BiTree *T,int key)
+{
+    BiTree p;
+    if(SearchBST(*T,key,NULL,&p))       //找与key相等的元素
+    {
+        if(key==(*T)->data)
+            Delete(T);
+        else if(key<(*T)->data)
+            DeleteBST(&(*T)->lchild,key);
+        else
+            DeleteBST(&(*T)->rchild,key);
+    }
+    else
+        printf("抱歉，当前二叉树中没有你要删除的元素。 \n");
+}
+
+//中序输出
+void InOrder(BiTree T)
+{
+    if(T)
+    {
+        InOrder(T->lchild);
+        printf("%d ",T->data);
+        InOrder(T->rchild);
+    }
+    else
+        return;
+}
+
+void main()
+{
+    int i,num;
+    BiTree T=NULL;
+
+    int a[10]={66,88,58,47,35,73,51,99,37,93};
+    for(i=0;i<10;i++)
+    {
+        InsertBST(&T,a[i]);
+    }
+    printf("当前的二叉树为：");
+    InOrder(T);
+    printf("\n");
+
+    printf("请输入你要插入的元素：");
+    scanf("%d",&num);
+    InsertBST(&T,num);
+    printf("当前的二叉树为：");
+    InOrder(T);
+    printf("\n");
+
+
+    printf("请输入你要删除的元素：");
+    scanf("%d",&num);
+    DeleteBST(&T,num);
+    printf("当前的二叉树为：");
+    InOrder(T);
+    printf("\n");
+}

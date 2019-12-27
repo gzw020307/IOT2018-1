@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <stdlib.h>
+void Parition( int a[] , int n ){
+    int pivot = 0 ;
+    int m = a[0] ;
+    int i = 0 , j= n-1 ;
+    while(i<j){
+        while(i<j&&a[j]>=pivot) --j;
+        a[i] = a[j];
+        while(i<j&&a[i]<=pivot) ++i;
+        a[j] = a[i];
+    }
+    a[i] = m ;
+}
+int main()
+{
+    printf("数组长度：");
+    int n  ;
+    scanf("%d",&n);
+    int a[n];
+    printf("数组：\n");
+    for(int i = 0 ; i < n ; i++){
+        scanf("%d",&a[i]);
+    }
+    printf("负数移动到正数前：");
+    Parition(a , n) ;
+    for(int i = 0 ; i < n ; i++){
+        printf("%d ",a[i]);
+    }
+    return 0;
+}
