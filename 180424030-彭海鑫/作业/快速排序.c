@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define BUF_SIZE 10
+#define NUM_SIZE 10
 void display(int array[], int maxlen)
 {
   int i;
@@ -60,8 +60,8 @@ void quicksort(int array[], int maxlen, int begin, int end)
 int main()
 {
   int n;
-  int array[BUF_SIZE] = {12,85,25,16,34,23,49,95,17,61};
-  int maxlen = BUF_SIZE;
+  int array[NUM_SIZE] = {12,85,25,16,34,23,49,95,17,61};
+  int maxlen = NUM_SIZE;
    
   printf("排序前的数组\n");
   display(array, maxlen);
