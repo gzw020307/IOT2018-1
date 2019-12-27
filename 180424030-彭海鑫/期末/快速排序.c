@@ -60,7 +60,7 @@ void quicksort(int array[], int maxlen, int begin, int end)
 int main()
 {
   int n;
-  int array[NUM_SIZE] = {12,85,25,16,34,23,49,95,17,61};
+  int array[NUM_SIZE] = {32,85,25,71,34,23,88,93,17,51};
   int maxlen = NUM_SIZE;
    
   printf("排序前的数组\n");
