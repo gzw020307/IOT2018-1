@@ -1,0 +1,126 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<iostream>
+
+
+#define LIST_INIT_SIZE 100
+#define LISTINCREMENT 10
+typedef int ElemType;
+typedef int Status;
+
+typedef struct LNode{
+	ElemType data;
+	struct LNode *next;
+}LNode ,*LinkList;
+/*typedef struct LinkList{
+	ElemType data;
+	struct LNode *next;
+}LinkList;*/
+static LinkList L;
+
+
+void menu();
+Status Creat(LinkList &L);
+void InitList(LinkList &L);
+Status Insert(LinkList &L);
+Status Delete(LinkList &L);
+Status Find(LinkList &L);
+Status Getall(LinkList &L);
+
+int main (){
+	menu();
+	return 0;
+}
+void  menu(){
+
+//	LinkList La,Lb;
+	int choice=1;
+	int i=0;
+	ElemType e=123;
+
+	while (choice!=0){
+		switch(choice){
+		case 1:InitList(L);
+			break;
+		case 2:Creat(L);
+			break;
+		case 3:Insert(L);
+			break;
+		case 4:Getall(L);
+			break;
+		case 5:
+			break;
+
+		}
+		printf("=========================\n");
+		printf("menu:\n");
+		printf("-------------------------\n");
+		printf("1.init\n");
+		printf("2.creat\n");
+		printf("3.insert\n");
+		printf("4.delete\n");
+		printf("5.creatla\n");
+		printf("6.creatlb\n");
+		printf("8.merge\n");
+		printf("=========================\n");
+		printf("print your choice");
+		scanf("%d",&choice);
+		
+	}//菜单
+
+}
+void InitList(LinkList &L){
+	L=new LNode;
+	if(!L)exit(0);
+	L->next=NULL;
+	printf("finish");
+};
+
+Status Creat(LinkList &L){//创建链表
+	int i=0;
+	LinkList p;
+	ElemType e=1;
+	printf("开始新建\n");
+	L=new LNode;
+	L->next=NULL;
+	printf("enter your number\n");
+	p=L;
+	while (e>0)
+	{
+		p=new LNode;
+		p->data=e;
+		L->next=p;
+		p->next=L->next;
+		scanf("%d",&e);
+	}
+	printf("新建完成\n");
+	return 0;
+}
+
+Status Insert(LinkList &L){
+	int i,j;
+	ElemType e;
+	LinkList p,s;
+	p=L;
+	j=0;
+	printf("enter the number you insert\n");
+	scanf("%d%d",&i,&e);
+	while (p&&j<i-1){p=p->next;++j;}
+	if(!p||j>i-1)return 1;
+	s=new LNode;
+	s->data=e;
+	s->next=p->next;
+	s->next;
+	return 0;
+}
+Status Getall(LinkList &L){
+	LinkList p;
+	p=L->next;
+	while(p->next!=NULL&&p!=NULL){
+		printf("%d",p->data);
+		p=p->next;
+		printf("->");
+	}
+	return 0;
+}
