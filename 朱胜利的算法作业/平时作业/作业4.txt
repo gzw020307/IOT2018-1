@@ -1,0 +1,65 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+
+#define STACK_INIT_SIZE 100;//存储空间的初始分配量
+#define STACKINCREMENT 10;//存储空间分配增量
+#define OK 0;
+typedef int SElemType;
+typedef int Status;
+
+typedef struct{
+	SElemType *base;
+	SElemType *top;
+	int stacksize;
+}SqStack;
+/*typedef struct LinkList{
+	ElemType data;
+	struct LNode *next;
+}LinkList;*/
+Status InitStack(SqStack &S);//构造一个空栈S
+Status DestroyStack(SqStack &S);//销毁栈S，S不再存在
+Status ClearStack(SqStack &S);//把S置为空栈
+Status StackEmpty(SqStack S);//若栈S为空栈，则返回TURE,否则返回FALSE
+int StackLength(SqStack S);//
+Status GetTop(SqStack S,SElemType &e);//
+Status Push(SqStack &S,SElemType e);//
+Status Pop(SqStack &S,SElemType &e);//
+Status StackTraverse(SqStack S,Status(*visit)());
+
+int main(){
+	SqStack S;
+	SElemType e;
+	Push(S,e);
+return 0;
+}
+
+
+Status InitStack(SqStack &S){
+	S.base=new SElemType;
+	if(!S.base)exit(-1);
+	S.top=S.base;
+	S.stacksize=STACK_INIT_SIZE;
+	return OK;
+}
+Status GetTop(SqStack &S,SElemType &e){
+	if(S.top==S.base)return -1;
+	e=*(S.top-1);
+	return OK;
+}
+Status Push(SqStack &S,SElemType e){
+	if(S.top-S.base>=S.stacksize){
+S.base=new SElemType;
+if(!S.base)exit(-1);
+S.top=S.base+S.stacksize;
+S.stacksize+=STACKINCREMENT;
+}
+*S.top++=e;
+return OK;
+}
+Status Pop(SqStack &S,SElemType &e){
+	if(S.top==S.base)return -1;
+	e=*--S.top;
+	return OK;
+}
