@@ -24,7 +24,6 @@ int merge(int r[],int s[],int x1,int x2,int x3)
             s[k++]=r[j++];
     return 0;
 }
-
 int merge_sort(int r[],int s[],int m,int n)
 {
     int p;
