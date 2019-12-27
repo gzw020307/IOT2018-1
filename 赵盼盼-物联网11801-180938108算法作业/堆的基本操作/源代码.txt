@@ -1,0 +1,264 @@
+
+头文件部分：
+#ifndef __HEAP_H__
+#define __HEAP_H__
+
+#include <assert.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+
+typedef int HPDataType;
+typedef int (*Compare) (HPDataType pLeft, HPDataType pRight);
+typedef struct Heap
+{
+	HPDataType* _hp;
+	int capacity;
+	int size;
+	Compare _com;
+
+}Heap;
+void CreateHeap(Heap *hp, HPDataType* arr, int size, Compare Com);
+void AdjustDown (Heap* hp, int parent);
+void InsertHeap (Heap* hp, HPDataType data);	
+void RemoveHeap (Heap* hp);
+int SizeHeap (Heap* hp);
+int IsHeapEmpty (Heap* hp);
+HPDataType HeapTop (Heap* hp);
+void AdjustUp (Heap* hp, int child);
+void Swap (HPDataType* p, HPDataType*q);
+void  CheakHeap (Heap* hp);
+void DestroyHeap (Heap* hp);
+int Less (HPDataType pLeft, HPDataType pRight);
+int Greater (HPDataType pLeft, HPDataType pRight);
+
+#endif 
+
+功能函数部分：
+#include "test.h"
+
+void CreateHeap(Heap *hp, HPDataType* arr, int size, Compare Com)
+{
+	int cur = 0;
+	assert(hp!=NULL);
+	hp->_hp = (HPDataType*)malloc (size * sizeof (HPDataType));
+	if (hp->_hp == NULL)
+	{
+		assert(0);
+		return;
+	}
+	memcpy (hp->_hp, arr, size*sizeof (HPDataType));
+	hp->size=size;
+	hp->capacity=size;
+	hp->_com=Com;
+
+	cur=((size-1)>>1);
+	for(;cur>=0;cur--)
+	{
+		AdjustDown (hp, cur);
+	}
+}
+
+void AdjustDown (Heap* hp, int parent)
+{
+	int child=0;
+	assert(hp !=NULL);
+	child=(parent<<1)+1;
+	while(child < hp->size)
+	{
+		if (child+1 < hp->size)
+		{
+			if (hp->_com (hp->_hp[child], hp->_hp[child+1]))
+
+			{
+
+				child += 1;
+
+			}
+		}
+		if (hp->_com(hp->_hp[parent], hp->_hp[child]))
+		{
+
+			Swap (&hp->_hp[parent], &hp->_hp[child]);
+		}
+		else
+
+		{
+
+			return;
+
+		}
+
+		parent = child;
+
+		child = (parent<<1) + 1;
+	}
+
+}
+
+void InsertHeap (Heap* hp, HPDataType data)
+{
+	assert (hp != NULL);
+	CheakHeap (hp);
+	hp->_hp[hp->size] = data;
+	hp->size++;
+
+	AdjustUp (hp, (hp->size)-1);
+}
+
+void RemoveHeap (Heap* hp)
+
+{
+
+	assert (hp != NULL);
+
+	Swap (&hp->_hp[0], &hp->_hp[hp->size-1]);
+
+	hp->size--;
+
+	AdjustDown (hp,0, hp->_com);
+
+}
+
+int SizeHeap (Heap* hp)	
+{
+	assert (hp != NULL);
+	return hp->size;
+}
+
+int IsHeapEmpty (Heap* hp)
+{
+	assert (hp != NULL);
+	return (hp->size == 0);
+}
+
+HPDataType HeapTop (Heap* hp)
+{
+	assert (hp != NULL);
+	return hp->_hp[0];
+}
+
+void AdjustUp (Heap* hp, int child)
+{
+	int parent = 0;
+	assert (hp != NULL);
+	parent = (child - 1)/2;
+	while (child)
+	{
+		if (!(hp->_com(hp->_hp[child], hp->_hp[parent])))
+		{
+			Swap (&hp->_hp[child], &hp->_hp[parent]);
+		}
+		child = parent;
+		parent = (child - 1)/2;
+	}
+}
+
+void Swap (HPDataType*p, HPDataType* q)
+{
+	HPDataType tmp;
+	assert (p != NULL && q != NULL);
+	tmp = *p;
+	*p = *q;
+	*q = tmp;
+}
+
+void  CheakHeap (Heap* hp)
+{
+	int newCapacity = 0;
+	int i = 0;
+	HPDataType* temp;
+	assert (hp != NULL);
+	if (hp->capacity > hp->size)
+	{
+		return ;
+	}
+	newCapacity = 2 * (hp->capacity)+3;
+	temp = (HPDataType*)malloc (newCapacity * sizeof (HPDataType));
+	if (temp == NULL)
+	{
+		perror ("CheakHeap::malloc>>");
+		return ;
+	}
+	for (; i<hp->size; ++i)	
+	{
+		temp[i] = hp->_hp[i];
+	}
+	free (hp->_hp);
+	hp->_hp = NULL;
+
+	hp->_hp = temp;
+	hp->capacity = newCapacity;
+}
+
+void DestroyHeap (Heap* hp)
+{
+	assert (hp != NULL);
+	free (hp->_hp);
+	hp->_hp = NULL;
+	hp->capacity = 0;
+	hp->size = 0;
+	printf ("销毁成功\n");
+}
+
+int Less (HPDataType pLeft, HPDataType pRight)
+{
+	assert (pLeft != NULL && pRight != NULL);
+	if (pLeft > pRight)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+int Greater (HPDataType pLeft, HPDataType pRight)
+{
+	if(pLeft > pRight)
+	{
+		return 1;
+	}
+	else 
+	{
+		return 0;
+	}
+}
+
+主函数实现：
+#include "test.h"
+//测试函数
+void test_Heap()
+{
+	int ret = 0;
+	HPDataType top = 0;
+	int arr[] = {53, 17, 78, 9, 45, 65, 87, 23, 31};
+	Heap hp;
+	CreateHeap (&hp, arr, sizeof(arr)/sizeof(arr[0]), Less);
+
+	ret = SizeHeap(&hp);
+	printf ("堆的大小为：%d\n", ret);
+	ret = IsHeapEmpty(&hp);
+	if (ret == 1)
+	{
+		printf ("这是空堆！\n");
+	}
+	else
+	{
+		printf ("不是空堆！\n");
+	}
+	top = HeapTop(&hp);
+	printf ("堆顶元素是：%d\n", top);
+
+	InsertHeap(&hp, 5);
+	RemoveHeap(&hp);
+	DestroyHeap (&hp);
+}
+
+int main ()
+
+{
+	test_Heap();
+	return 0;
+}
