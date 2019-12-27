@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX 105
+typedef struct bitnode
+{
+    char data;
+    struct bitnode *lchild,*rchild;
+}BiTNode,*BiTree;
+int search_num(char ch,char array[],int len);
+            //查找的元素   查找的地方   长度
+BiTree ReBiTree(char *postod,char *inod,int len);
+            //后序序列首地址  中序序列首地址    长度
+void Per_Print(BiTree bt);
+            //前序打印二叉树以判断二叉树构建成功
+int main()
+{
+    BiTree t=NULL;
+    char postod[MAX]={'g','d','b','e','f','c','a'};
+    char inod[MAX]={'d','g','b','a','e','c','f'};
+    t=ReBiTree(postod,inod,strlen(postod));
+    Per_Print(t);
+    return 0;
+}
+int search_num(char ch,char array[],int len)
+{
+    int i;
+    for(i=0;i<len;i++)
+    {
+        if(array[i]==ch)
+            return i;
+    }
+}
+BiTree ReBiTree(char *postod,char *inod,int len)
+{
+    int index;
+    if(len<=0)   return NULL;
+    BiTree p;
+    p=(BiTNode*)malloc(sizeof(BiTNode));
+    p->data=*(postod+len-1);
+    index=search_num(p->data,inod,len);
+    p->lchild=ReBiTree(postod,inod,index);
+    p->rchild=ReBiTree(postod+index,inod+index+1,len-index-1);
+}
+void Per_Print(BiTree bt)
+{
+    if(bt==NULL)   return;
+    printf("%c",bt->data);
+    Per_Print(bt->lchild);
+    Per_Print(bt->rchild);
+}

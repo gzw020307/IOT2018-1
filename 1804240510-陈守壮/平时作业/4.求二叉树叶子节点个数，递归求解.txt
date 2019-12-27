@@ -1,0 +1,16 @@
+int leaf(PTNode root)
+{
+    if(root==0)
+    {
+        return 0;
+    }
+    else if(root->lchild==NULL && root->rchild==NULL)
+    {
+        printf("р╤вс╫з╣Ц%d\n",root->data);
+        return 1;
+    }
+    else
+    {
+        return leaf(root->lchild)+leaf(root->rchild);
+    }
+ } 
